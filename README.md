@@ -40,4 +40,4 @@ Collection.checkRestrictions('jump', undefined, {}); // true
 > collection.validateRestrictions(action: String, args...)
 
 #### checkRestrictions
-> collection.checkRestrictions(action: String, args...)
+> collection.checkRestrictions(action: String, args...) => Boolean
