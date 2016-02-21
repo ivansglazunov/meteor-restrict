@@ -32,8 +32,9 @@ Mongo.Collection.prototype.attachRestriction = function(action) {
 Mongo.Collection.prototype.validateRestrictions = function(action) {
 	var collection = this;
 	
-	if (!(action in collection._validators))
+	if (!(action in collection._validators)) {
 		throw new Meteor.Error('Restriction '+action+' is not defined');
+	}
 	
 	var args = Array.prototype.slice.call(arguments, 1);
 	
@@ -51,7 +52,7 @@ Mongo.Collection.prototype.validateRestrictions = function(action) {
 // collection.checkRestrictions(action: String, args...)
 Mongo.Collection.prototype.checkRestrictions = function() {
 	try {
-		this.validateRestriction.apply(this, arguments);
+		this.validateRestrictions.apply(this, arguments);
 	} catch(error) {
 		return false;
 	}
