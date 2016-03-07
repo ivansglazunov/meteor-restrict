@@ -41,3 +41,8 @@ Collection.checkRestrictions('jump', undefined, {}); // true
 
 #### checkRestrictions
 > collection.checkRestrictions(action: String, args...) => Boolean
+
+## Versions
+
+### 0.0.3
+* Attach multiple restrictions.

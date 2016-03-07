@@ -3,7 +3,7 @@ Mongo.Collection.prototype.attachRestriction = function(action) {
 	var collection = this;
 	if (typeof collection._validators[action] === 'undefined') {
 		collection._validators[action] = { allow: [], deny: [] };
-	} else throw new Meteor.Error('Restriction '+action+' already defined');
+	} else return undefined;
 	
 	lodash.each(['allow', 'deny'], function(method) {
 		var _super = Mongo.Collection.prototype[method];
