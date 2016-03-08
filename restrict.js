@@ -5,7 +5,7 @@ lodash.each(['allow', 'deny'], function(method) {
 		var collection = this;
 		
 		for (var r in rules) {
-			if (!lodash.includes(['insert', 'update', 'remove', 'fetch'], r)) {
+			if (!lodash.includes(['insert', 'update', 'remove', 'fetch', 'transform'], r)) {
 				if (!(rules[r] instanceof Function)) {
 					throw new Error(method + ': Value for `' + r + '` must be a function');
 				}
