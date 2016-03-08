@@ -15,8 +15,6 @@ Tinytest.add('Check native restictions', function(test) {
 });
 Tinytest.add('Check custom restictions', function(test) {
     var collection = new Mongo.Collection(null);
-
-    collection.attachRestriction('test');
     
     collection.deny({
         test: function(userId, document) {

@@ -1,32 +1,26 @@
-// collection.attachRestriction(action: String)
-Mongo.Collection.prototype.attachRestriction = function(action) {
-	var collection = this;
-	if (typeof collection._validators[action] === 'undefined') {
-		collection._validators[action] = { allow: [], deny: [] };
-	} else return undefined;
+lodash.each(['allow', 'deny'], function(method) {
+	var _super = Mongo.Collection.prototype[method];
 	
-	lodash.each(['allow', 'deny'], function(method) {
-		var _super = Mongo.Collection.prototype[method];
+	Mongo.Collection.prototype[method] = function(rules) {
+		var collection = this;
 		
-		Mongo.Collection.prototype[method] = function(rules) {
-			var collection = this;
-			
-			if (rules[action]) {
-				if (!(rules[action] instanceof Function)) {
-					throw new Error(method + ': Value for `' + name + '` must be a function');
+		for (var r in rules) {
+			if (!lodash.includes(['insert', 'update', 'remove', 'fetch'], r)) {
+				if (!(rules[r] instanceof Function)) {
+					throw new Error(method + ': Value for `' + r + '` must be a function');
 				}
-				if (typeof collection._validators[action] === 'undefined') {
-					collection._validators[action] = { allow: [], deny: [] };
+				if (typeof collection._validators[r] === 'undefined') {
+					collection._validators[r] = { allow: [], deny: [] };
 				}
-				collection._validators[action][method].push(rules[action]);
+				collection._validators[r][method].push(rules[r]);
 				collection._restricted = true;
 			}
-			
-			// Pass on valid meteor rules
-			return _super.call(collection, _.omit(rules, action));
-		};
-	});
-};
+		}
+		
+		// Pass on valid meteor rules
+		return _super.call(collection, _.pick(rules, ['insert', 'update', 'remove', 'fetch']));
+	};
+});
 
 // collection.validateRestrictions(action: String, args...)
 Mongo.Collection.prototype.validateRestrictions = function(action) {

@@ -11,7 +11,6 @@ Methods for the easy validation.
 
 ```js
 Collection = new Mongo.Collection(null);
-Collection.attachRestriction('jump');
 Collection.deny({
     insert: function(userId, document) {
         Collection.validateRestrictions('jump', userId, document);
@@ -33,9 +32,6 @@ Collection.checkRestrictions('jump', undefined, { jumping: true }); // false
 Collection.checkRestrictions('jump', undefined, {}); // true
 ```
 
-### attachRestriction
-> collection.attachRestriction(action: String)
-
 ### validateRestrictions
 > collection.validateRestrictions(action: String, args...)
 
@@ -43,6 +39,9 @@ Collection.checkRestrictions('jump', undefined, {}); // true
 > collection.checkRestrictions(action: String, args...) => Boolean
 
 ## Versions
+
+### 0.0.4
+* Remove need for `attachRestriction`.
 
 ### 0.0.3
 * Attach multiple restrictions.
