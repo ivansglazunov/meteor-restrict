@@ -27,7 +27,7 @@ Mongo.Collection.prototype.validateRestrictions = function(action) {
 	var collection = this;
 	
 	if (!(action in collection._validators)) {
-		throw new Meteor.Error('Restriction '+action+' is not defined');
+		return undefined;
 	}
 	
 	var args = Array.prototype.slice.call(arguments, 1);
