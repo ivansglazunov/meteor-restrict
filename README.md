@@ -35,10 +35,26 @@ Collection.checkRestrictions('jump', undefined, {}); // true
 ### validateRestrictions
 > collection.validateRestrictions(action: String, args...)
 
+Call all restrictions with name `action` and thrown error if exists.
+
 #### checkRestrictions
 > collection.checkRestrictions(action: String, args...) => Boolean
 
+Call `validateRestrictions` and if thrown error, returns `false`, else returns `true`.
+
+### attachRestrictions
+> collection.attachRestrictions();
+
+Imitation server validation on client for any collection.
+
+```js
+if (Meteor.isClient) collection.attachRestrictions();
+```
+
 ## Versions
+
+### 0.0.6
+* Addad `attachRestrictions` for imitation server validation on client for any collection.
 
 ### 0.0.4
 * Remove need for `attachRestriction`.

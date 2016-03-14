@@ -52,3 +52,17 @@ Mongo.Collection.prototype.checkRestrictions = function() {
 	}
 	return true;
 };
+
+// collection.attachRestrictions();
+Mongo.Collection.prototype.attachRestrictions = function() {
+	var collection = this;
+	collection.before.insert(function() {
+		collection.validateRestrictions('insert', ...arguments);
+	});
+	collection.before.update(function() {
+		collection.validateRestrictions('update', ...arguments);
+	});
+	collection.before.remove(function() {
+		collection.validateRestrictions('remove', ...arguments);
+	});
+};
