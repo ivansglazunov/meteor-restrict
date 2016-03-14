@@ -53,7 +53,7 @@ if (Meteor.isClient) collection.attachRestrictions();
 
 ## Versions
 
-### 0.0.6
+### 0.0.7
 * Addad `attachRestrictions` for imitation server validation on client for any collection.
 
 ### 0.0.4
