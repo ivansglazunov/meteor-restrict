@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ivansglazunov:restrict',
-  version: '0.0.7',
+  version: '0.0.8',
   summary: 'It allows you to easily add their own restrictions into allow or deny.',
   git: 'https://github.com/ivansglazunov/meteor-restrict.git',
   documentation: 'README.md'
@@ -14,6 +14,7 @@ Package.onUse(function(api) {
   api.use('accounts-base');
   
   api.use('stevezhu:lodash@4.3.0');
+  api.use('matb33:collection-hooks@0.8.1');
   
   api.addFiles('restrict.js');
 });
