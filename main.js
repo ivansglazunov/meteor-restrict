@@ -3,6 +3,10 @@ export const ALLOWED_UPDATE_OPERATIONS = {
   $pushAll: 1, $push: 1, $bit: 1
 };
 
+const noReplaceError = "Access denied. In a restricted collection you can only" +
+  " update documents, not replace them. Use a Mongo update operator, such " +
+  "as '$set'.";
+  
 export default function modifierToFields(modifier, ALLOWED_UPDATE_OPERATIONS = ALLOWED_UPDATE_OPERATIONS) {
   const fields = [];
   if (_.isEmpty(modifier)) {
