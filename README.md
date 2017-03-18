@@ -5,7 +5,9 @@ meteor add ivansglazunov:restrict
 ```
 
 It allows you to easily add their own restrictions into allow or deny.
-Methods for the easy validation.
+Methods for the easy collection validation.
+
+You can also use modifier to fields parser for update.
 
 ## Usage
 
@@ -51,7 +53,23 @@ Imitation server validation on client for any collection.
 if (Meteor.isClient) collection.attachRestrictions();
 ```
 
+### modifierToFields
+> modifierToFields(modifier: Object, [ALLOWED_UPDATE_OPERATIONS]) => String[] fields
+
+Parse modifier to fields.
+
+```js
+import modifierToFields from 'meteor/ivansglazunov:restrict';
+
+try {
+    var fields = modifierToFields(modifier);
+} catch(error) {};
+```
+
 ## Versions
+
+### 0.0.9
+* Added `modifierToFields` parser.
 
 ### 0.0.7
 * Addad `attachRestrictions` for imitation server validation on client for any collection.
