@@ -59,7 +59,7 @@ if (Meteor.isClient) collection.attachRestrictions();
 Parse modifier to fields.
 
 ```js
-import modifierToFields from 'meteor/ivansglazunov:restrict';
+import { modifierToFields } from 'meteor/ivansglazunov:restrict';
 
 try {
     var fields = modifierToFields(modifier);
@@ -67,6 +67,9 @@ try {
 ```
 
 ## Versions
+
+### 0.0.10
+* Better syntax for modifierToFields.
 
 ### 0.0.9
 * Added `modifierToFields` parser.
