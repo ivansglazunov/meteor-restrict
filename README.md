@@ -66,7 +66,21 @@ try {
 } catch(error) {};
 ```
 
+### addPrefixToModifier
+> addPrefixToModifier(prefix: String, modifier: Object, target?: {}) => Object target
+
+Regenerate modifier with some prefix. Support any modifiers, but note full update without modifiers.
+
+```js
+import { addPrefixToModifier } from 'meteor/ivansglazunov:restrict';
+var target = addPrefixToModifier('abc.',{ $set: { def: 123 } });
+// { $set: { 'abc.def': 123 } }
+```
+
 ## Versions
+
+### 0.0.11
+* Added `addPrefixToModifier` generator.
 
 ### 0.0.10
 * Better syntax for modifierToFields.

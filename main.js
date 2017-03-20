@@ -6,8 +6,22 @@ var ALLOWED_UPDATE_OPERATIONS = {
 const noReplaceError = "Access denied. In a restricted collection you can only" +
   " update documents, not replace them. Use a Mongo update operator, such " +
   "as '$set'.";
-  
-var modifierToFields = function(modifier, operations = ALLOWED_UPDATE_OPERATIONS) {
+
+/**
+ * Parse modifier to fields.
+ * 
+ * @param {Object} modifier 
+ * @param {Object} [operations=ALLOWED_UPDATE_OPERATIONS]
+ * @returns {String[]} fields
+ * 
+ * @example
+ * import { modifierToFields } from 'meteor/ivansglazunov:restrict';
+ * try {
+ *   var fields = modifierToFields({ $set: { abc: 123 }, $pull: { def: 123 } });
+ *   // ['abc', 'def']
+ * } catch(error) {}
+ */
+function modifierToFields(modifier, operations = ALLOWED_UPDATE_OPERATIONS) {
   const fields = [];
   if (_.isEmpty(modifier)) {
     throw new Meteor.Error(403, noReplaceError);
@@ -34,7 +48,31 @@ var modifierToFields = function(modifier, operations = ALLOWED_UPDATE_OPERATIONS
   return fields;
 };
 
+/**
+ * Regenerate modifier with some prefix. Support any modifiers, but note full update without modifiers.
+ * 
+ * @param {String} prefix
+ * @param {Object} modifier
+ * @param {Object} [target={}]
+ * @returns {Object} target
+ * 
+ * @example
+ * import { addPrefixToModifier } from 'meteor/ivansglazunov:restrict';
+ * var target = addPrefixToModifier('abc.',{ $set: { def: 123 } });
+ * // { $set: { 'abc.def': 123 } }
+ */
+function addPrefixToModifier(prefix, modifier, target = {}) {
+  for (var m in modifier) {
+    if (!target[m]) target[m] = {};
+    for (var f in modifier[m]) {
+      target[m][prefix + f] = modifier[m][f];
+    }
+  }
+  return target;
+};
+
 export {
   ALLOWED_UPDATE_OPERATIONS,
   modifierToFields,
+  addPrefixToModifier,
 };

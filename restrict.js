@@ -22,7 +22,12 @@ _.each(['allow', 'deny'], function(method) {
 	};
 });
 
-// collection.validateRestrictions(action: String, args...)
+/**
+ * Call all restrictions with name `action` and thrown error if exists.
+ * @param {String} action - Name of restriction.
+ * @param {...any} args - Any arguments for current restriction.
+ * @throws {Error}
+ */
 Mongo.Collection.prototype.validateRestrictions = function(action) {
 	var collection = this;
 	
@@ -43,7 +48,12 @@ Mongo.Collection.prototype.validateRestrictions = function(action) {
 	});
 };
 
-// collection.checkRestrictions(action: String, args...)
+/**
+ * Call `validateRestrictions` and if thrown error, then return boolean result.
+ * @param {String} action - Name of restriction.
+ * @param {...any} args - Any arguments for current restriction.
+ * @return {Boolean}
+ */
 Mongo.Collection.prototype.checkRestrictions = function() {
 	try {
 		this.validateRestrictions.apply(this, arguments);
@@ -53,7 +63,9 @@ Mongo.Collection.prototype.checkRestrictions = function() {
 	return true;
 };
 
-// collection.attachRestrictions();
+/**
+ * Imitation server validation on client for any collection.
+ */
 Mongo.Collection.prototype.attachRestrictions = function() {
 	var collection = this;
 	collection.before.insert(function() {

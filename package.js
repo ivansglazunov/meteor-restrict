@@ -1,6 +1,6 @@
 Package.describe({
   name: 'ivansglazunov:restrict',
-  version: '0.0.10',
+  version: '0.0.11',
   summary: 'It allows you to easily add their own restrictions into allow or deny.',
   git: 'https://github.com/ivansglazunov/meteor-restrict.git',
   documentation: 'README.md'
